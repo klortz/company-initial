@@ -14,16 +14,24 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 
+bootRun {
+	systemProperty "spring.profiles.active", "dev"
+}
+
 jar {
 	baseName = 'company'
 }
+
+test {
+	systemProperty "spring.profiles.active", "dev"
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
 }
-
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
