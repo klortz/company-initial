@@ -1,32 +1,19 @@
 package io.rscale.training.company;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestMapping;  
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 
-@Component
-@Profile("dev")
-public class SampleData implements CommandLineRunner {
+@RefreshScope
+@RestController
+class MessageController {
 
-    private final CompanyRepository repository;
+    @Value("${message:Hello default}")
+    private String message;
 
-    @Autowired
-    public SampleData(CompanyRepository repository) {
-        this.repository = repository;
+    @RequestMapping("/message")
+    String getMessage() {
+        return "\n" + this.message + "\n\n";
     }
-
-    @Override
-    public void run(String... strings) throws Exception {	 
-    	add(new Company("Resilient Scale", new String[]{"Resilient Scale, Inc", "Resilient Scale Inc", "RScale"}, "https://rscale.io", "resilientscale"));
-    	add(new Company("Cloud Foundry", new String[]{"Cloud Foundry Foundation", "CFF"}, "https://cloudfoundry.org", "cloudfoundry"));
-        repository.findAll().forEach(System.out::println);
-    }
-    	
-    private void add(Company company) throws Exception {
-    	if (repository.findByNameIgnoreCase(company.getName()).isEmpty()) {
-    		repository.save(company);
-    	}
-    }
-    
 }
