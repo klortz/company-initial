@@ -1,0 +1,10 @@
+applications:
+- name: company
+  instances: 1
+  memory: 1024M
+  disk_quota: 1024M
+  buildpack: java_buildpack
+  services:
+  - my-logs
+  - cldb
+  stack: cflinuxfs2
