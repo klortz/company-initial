@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 @Configuration
+@Profile("dev")
 public class DataSourceConfig {
 
     private static final Logger logger = Logger.getLogger(DataSourceConfig.class);
