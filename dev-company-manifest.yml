@@ -7,4 +7,5 @@ applications:
   services:
   - my-logs
   - cldb
+  - config-service
   stack: cflinuxfs2
